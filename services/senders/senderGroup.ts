@@ -1,4 +1,5 @@
 // sends messages of type INFO NEWS
+// fanout based.
 
 import amqp from 'amqplib';
 
@@ -17,19 +18,26 @@ async function sendToFanoutExchange() {
 
         // Function to publish messages continuously
         const sendMessage = () => {
-            const message = { text: `Message sent at ${new Date().toISOString()}` };
+            const message = { text: `${getTopic()} sendera ${new Date().getTime()}` };
             channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)));
             console.log(`Message sent to fanout exchange: ${JSON.stringify(message)}`);
         };
 
         // Send messages at regular intervals
-        setInterval(sendMessage, 1000); // Sends a message every 1 second
+        setInterval(sendMessage, 4000); // Sends a message every 1 second
 
         console.log('Press Ctrl+C to exit and stop sending messages.');
     } catch (error) {
         console.error('Error occurred:', error);
     }
 }
+
+// Helper function to generate topic
+function getTopic(): string {
+    const topics = ['news', 'info'];
+    return topics[Math.floor(Math.random() * topics.length)];
+  }
+
 
 sendToFanoutExchange();
 
