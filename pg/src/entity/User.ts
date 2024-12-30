@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from "typeorm"
+import { StarredMessages } from "./StarredMessages"
 
 @Entity()
 export class User {
@@ -12,7 +13,7 @@ export class User {
     @Column()
     lastName: string
 
-    @Column()
-    age: number
+    @OneToMany(() => StarredMessages, (starredMessages) => starredMessages.user)
+    starredMessages: Relation<StarredMessages>
 
 }

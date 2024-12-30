@@ -2,10 +2,13 @@
 // stores user message count and starred messages.
 // allows retreival of ten messages.
 // subgraph 2.
-import * as express from 'express'
-const app = express();
 
-import { AppDataSource } from "./data-source"
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { gql } from 'graphql-tag';
+
+import { AppDataSource } from "./config/data-source"
 // import { User } from "./entity/User"
 
 // AppDataSource.initialize().then(async () => {
@@ -31,8 +34,24 @@ await AppDataSource.initialize();
 
 const port = 4003;
 
-app.listen(port);
-console.log(`Server is running at ${port}`)
+const typeDefs = gql`
+
+`;
+
+const resolvers = {
+};
+
+
+const server = new ApolloServer({
+schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+});
+
+
+const { url } = await startStandaloneServer(server, {
+listen: { port: port || 4001 },
+});
+
+console.log(`Server ready at ${url}`);
 
 }
 
