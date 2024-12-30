@@ -27,7 +27,7 @@ async function startPublisher() {
     // Send messages every second
     setInterval(() => {
       const routingKey = getRandomRoutingKey();
-      const message = routingKey+" "+"sender2"+new Date().toISOString();//`Message with routing key '${routingKey}' at ${new Date().toISOString()}`;
+      const message = getTopic()+" "+"sender2 "+new Date().toISOString();//`Message with routing key '${routingKey}' at ${new Date().toISOString()}`;
 
       // Publish the message to the exchange with the routing key
       channel.publish(EXCHANGE_NAME, routingKey, Buffer.from(message));
@@ -38,6 +38,11 @@ async function startPublisher() {
     console.error('Error connecting to RabbitMQ:', error);
   }
 }
+
+function getTopic(): string {
+    const topics = ['info'];
+    return topics[Math.floor(Math.random() * topics.length)];
+  }
 
 // Helper function to generate random routing keys
 function getRandomRoutingKey(): string {

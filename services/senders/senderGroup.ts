@@ -3,6 +3,8 @@
 
 import amqp from 'amqplib';
 
+const TOPICS = ['news', 'info'];
+
 async function sendToFanoutExchange() {
     const exchangeName = 'fanout_exchange';
 
@@ -18,9 +20,9 @@ async function sendToFanoutExchange() {
 
         // Function to publish messages continuously
         const sendMessage = () => {
-            const message = { text: `${getTopic()} sendera ${new Date().getTime()}` };
-            channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)));
-            console.log(`Message sent to fanout exchange: ${JSON.stringify(message)}`);
+            const message = `${getTopic()} sendera ${new Date().getTime()}`;
+            channel.publish(exchangeName, '', Buffer.from((message)));
+            console.log(`Message sent to fanout exchange: ${(message)}`);
         };
 
         // Send messages at regular intervals
@@ -34,8 +36,7 @@ async function sendToFanoutExchange() {
 
 // Helper function to generate topic
 function getTopic(): string {
-    const topics = ['news', 'info'];
-    return topics[Math.floor(Math.random() * topics.length)];
+    return TOPICS[Math.floor(Math.random() * TOPICS.length)];
   }
 
 

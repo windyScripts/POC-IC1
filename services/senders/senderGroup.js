@@ -15,6 +15,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const amqplib_1 = __importDefault(require("amqplib"));
+const TOPICS = ['news', 'info'];
 function sendToFanoutExchange() {
     return __awaiter(this, void 0, void 0, function* () {
         const exchangeName = 'fanout_exchange';
@@ -28,9 +29,9 @@ function sendToFanoutExchange() {
             });
             // Function to publish messages continuously
             const sendMessage = () => {
-                const message = { text: `${getTopic()} sendera ${new Date().getTime()}` };
-                channel.publish(exchangeName, '', Buffer.from(JSON.stringify(message)));
-                console.log(`Message sent to fanout exchange: ${JSON.stringify(message)}`);
+                const message = `${getTopic()} sendera ${new Date().getTime()}`;
+                channel.publish(exchangeName, '', Buffer.from((message)));
+                console.log(`Message sent to fanout exchange: ${(message)}`);
             };
             // Send messages at regular intervals
             setInterval(sendMessage, 4000); // Sends a message every 1 second
@@ -43,7 +44,6 @@ function sendToFanoutExchange() {
 }
 // Helper function to generate topic
 function getTopic() {
-    const topics = ['news', 'info'];
-    return topics[Math.floor(Math.random() * topics.length)];
+    return TOPICS[Math.floor(Math.random() * TOPICS.length)];
 }
 sendToFanoutExchange();
