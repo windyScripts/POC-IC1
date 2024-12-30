@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start:all":"concurrently \"node consumer1\" \"node consumer2\"",
+    "start:all":"concurrently \"node dist/consumer1\" \"node dist/consumer2\"",
     "start": "npm run compile && npm run start:all"
   },
   "author": "",
