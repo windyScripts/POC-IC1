@@ -53,7 +53,7 @@ async function startReceiver() {
     channel.consume(queue, (msg) => {
       if (msg) {
         //console.log(msg);
-        console.log(`Received message on topic '${msg.fields.routingKey||'common'}':`, msg.content.toString());
+        console.log(`Received message on topic '${msg.fields.routingKey||'common'}':`, `${getEngagement()} ${msg.content.toString()}`);
         channel.ack(msg);
       }
     });
@@ -62,11 +62,16 @@ async function startReceiver() {
   }
 }
 
-function getRoutingKey (){
-    return TOPICS.join('.');
+// function getRoutingKey (){
+//     return TOPICS.join('.');
+// }
+
+function getEngagement():number{
+  const engagementLevels = [0, 1, 2];
+  return engagementLevels[Math.floor(Math.random() * engagementLevels.length)];
 }
 
-function getTopics (){
+function getTopics ():string{
     return TOPICS.join(', ')+'.';
 }
 
