@@ -8,10 +8,7 @@ export class User extends BaseEntity {
     id!: number
 
     @Column()
-    firstName!: string
-
-    @Column()
-    lastName!: string
+    name!: string
 
     @OneToMany(() => StarredMessages, (starredMessages) => starredMessages.user)
     starredMessages!: Relation<StarredMessages[]>

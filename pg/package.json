@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/server": "^4.11.2",
     "@apollo/subgraph": "^2.9.3",
+    "graphql-tag": "^2.12.6",
     "pg": "^8.13.1",
     "typeorm": "^0.3.20"
   },
