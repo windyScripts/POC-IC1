@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Relation, BaseEntity
 import { User } from "./User.entity"
 
 @Entity()
-export class StarredMessages extends BaseEntity{
+export class StarredMessages{
 
     @PrimaryGeneratedColumn()
     id!: number

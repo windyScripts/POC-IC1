@@ -7,8 +7,8 @@ import { buildSubgraphSchema } from '@apollo/subgraph';
 import { resolvers } from './resolvers/resolvers';
 import { typeDefs } from './typeDefs/typeDefs';
 
-import { User } from './entity/User.entity';
-import { StarredMessages } from './entity/StarredMessages.entity';
+// import { User } from './entity/User.entity';
+// import { StarredMessages } from './entity/StarredMessages.entity';
 
 const startServer = async () => {
     await AppDataSource.initialize();
@@ -24,6 +24,7 @@ const startServer = async () => {
     });
 
     console.log(`🚀 Server ready at ${url}`);
+    
     // console.log("Inserting a new user into the database...")
     // const user = new User()
     // user.firstName = "Timber"
