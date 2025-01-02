@@ -13,14 +13,14 @@ export const typeDefs = gql`
     type user{
         id:ID
         email:String
-        name:string
+        name:String
         starredMessages:[starredMessage]
     }
 
     input userInput{
         email:String
-        name:string
-        starredMessages:[starredMessage]
+        name:String
+        #starredMessages:[starredMessage]
     }
 
     input messageInput{

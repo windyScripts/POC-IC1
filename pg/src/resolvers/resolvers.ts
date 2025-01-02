@@ -16,7 +16,7 @@ const starredMessageRepository = AppDataSource.getRepository(StarredMessages)
     }
 }
 
-const getMessages = async (user: {}) => {
+const getMessages = async (user: userType) => {
     
     const messages = await starredMessageRepository.find({where:{user}})
     return {
@@ -32,7 +32,7 @@ const createMessage = async (args:userType,message:messageType) => {
     starredMessage.source = message.source
     starredMessage.message = message.message
     starredMessage.user = args;
-   const savedMessage =  await starredMessageRepository.save(message)
+   const savedMessage =  await starredMessageRepository.save(starredMessage)
     return {
         status:200,
         savedMessage,
@@ -43,8 +43,15 @@ const createMessage = async (args:userType,message:messageType) => {
 }
 
 export const resolvers = {
-
-}
+    Query: {
+      getUser: async (_:any, { email }:{email:string}) => getUser(email),
+      getMessages: async (_:any, { input }:{input:userType}) => getMessages(input),
+    },
+    Mutation: {
+      createMessage: async (_:any, { input }:{input:{args:userType,message:messageType}}) => createMessage(input.args, input.message),
+    },
+  };
+  
 
 type userType = {
     id:number
