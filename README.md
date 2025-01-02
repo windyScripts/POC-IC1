@@ -48,3 +48,9 @@ docker run -d \
 ```
 
 ### 3. run npm start in services/receivers -> services/senders -> 
+
+## Further work
+
+Kafka integration
+GraphQL requests from receivers to apps
+resolver references and shared entities completion.
