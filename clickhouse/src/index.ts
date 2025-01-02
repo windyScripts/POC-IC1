@@ -23,10 +23,10 @@ async function startServer() {
     userEmail String,
     text String,
     engagement Enum8('Ignored'=0,'Opened'=1,'Starred'=2),
-    type Enum8('news' = 1, 'info' = 2),
+    type Enum8('news'=1, 'info'=2),
     sendTime UInt32
-) ENGINE = MergeTree;
- ORDER BY (id);`
+) ENGINE = MergeTree
+ ORDER BY (id)`
 
   cHClient.exec({query})
 

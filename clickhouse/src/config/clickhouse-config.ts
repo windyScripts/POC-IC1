@@ -5,5 +5,4 @@ export const cHClient = createClient({
   url:"http://localhost:8123",
   username:"clickHouse",
   password:"clickHouse",
-  database:"clickHouse"
 })
