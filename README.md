@@ -1,20 +1,42 @@
-Install and run docker.
+# Proof of Concept project
 
-DBs' needed to run this project:
+## Technologies
 
-rabbitmq:
+### clickhouse
+
+No ORM, raw queries. GraphQL. Subgraph1
+
+### Postgres
+
+TypeORM, GraphQL, Subgraph2
+
+### RabbitMQ
+
+Senders and Receivers for both topic and fanout based transmission.
+
+### Gateway
+
+GraphQL Supergraph
+
+## Instructions to run project:
+
+### 1.Install and run docker.
+
+### 2.DBs' needed to run this project:
+
+#### rabbitmq:
 
 ```bash
 docker run -d --name rabbitmq -p 15672:15672 -p 5672:5672 rabbitmq:management
 
 ```
 
-posgres:
+#### posgres:
 
 ```bash
 docker run -d --name postgres -e POSTGRES_PASSWORD="postgres" -p 5432:5432 postgres
 ```
-clickhouse:
+#### clickhouse:
 
 ```bash
 docker run -d \
@@ -25,3 +47,4 @@ docker run -d \
   yandex/clickhouse-server:latest
 ```
 
+### 3. run npm start in services/receivers -> services/senders -> 
