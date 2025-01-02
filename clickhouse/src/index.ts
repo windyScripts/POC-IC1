@@ -6,8 +6,9 @@ import bodyParser from 'body-parser';
 
 import { resolvers } from './resolvers/resolvers';
 import { typeDefs } from './typeDefs/typeDefs';
+import { cHClient } from './config/clickhouse-config';
 
-const PORT = 4001;
+const PORT = 4002;
 
 // Create the ApolloServer instance with the federated schema
 const server = new ApolloServer({
@@ -15,6 +16,20 @@ const server = new ApolloServer({
 });
 
 async function startServer() {
+
+  const query = `
+  CREATE TABLE IF NOT EXISTS userMessages (
+    id UInt32,
+    userEmail String,
+    text String,
+    engagement Enum8('Ignored'=0,'Opened'=1,'Starred'=2),
+    type Enum8('news' = 1, 'info' = 2),
+    sendTime UInt32
+) ENGINE = MergeTree;
+ ORDER BY (id);`
+
+  cHClient.exec({query})
+
   const app = express();
 
   // Start the Apollo Server
