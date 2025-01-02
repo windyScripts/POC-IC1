@@ -4,8 +4,8 @@
 
 import amqp from 'amqplib';
 
-const domain1 = "http://localhost:3000" //ADJUST
-const domain2 = "http://localhost:3001" //ADJUST
+const domain1 = "http://localhost:4002"
+const domain2 = "http://localhost:4003"
 
 const TOPICS = ['sender1','common']
 const RABBITMQ_URL = 'amqp://localhost'; // Replace with your RabbitMQ server URL
