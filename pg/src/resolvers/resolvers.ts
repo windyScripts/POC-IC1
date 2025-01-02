@@ -8,12 +8,22 @@ const starredMessageRepository = AppDataSource.getRepository(StarredMessages)
 
  const getUser =  async (email: string) => {
    
-    const user = await userRepository.findBy({email})
+    const user = await userRepository.findOne({where:{email}})
+    return {
+        status: 200,
+        success:true,
+        user,
+    }
 }
 
 const getMessages = async (user: {}) => {
     
-    const messages = await starredMessageRepository.findBy(user)
+    const messages = await starredMessageRepository.find({where:{user}})
+    return {
+        status: 200,
+        success:true,
+        messages,
+    }
 
 }
 
@@ -23,9 +33,10 @@ const createMessage = async (args:userType,message:messageType) => {
     starredMessage.message = message.message
     starredMessage.user = args;
    const savedMessage =  await starredMessageRepository.save(message)
-    return { // CORRECT LATER
+    return {
         status:200,
-        message: savedMessage
+        savedMessage,
+        message:'Message successfully saved.'
     }
 
 

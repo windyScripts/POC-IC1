@@ -7,6 +7,8 @@ import { buildSubgraphSchema } from '@apollo/subgraph';
 import { resolvers } from './resolvers/resolvers';
 import { typeDefs } from './typeDefs/typeDefs';
 
+const port = 4003;
+
 // import { User } from './entity/User.entity';
 // import { StarredMessages } from './entity/StarredMessages.entity';
 
@@ -20,7 +22,7 @@ const startServer = async () => {
 
 
     const { url } = await startStandaloneServer(server, {
-        listen: { port: 4001 },
+        listen: { port },
     });
 
     console.log(`🚀 Server ready at ${url}`);
