@@ -3,11 +3,12 @@ import gql from 'graphql-tag'
 export const typeDefs = gql`
     type Query{
         getUser(id:ID):user
-        getMessages(input:userInput):[starredMessage]
+        getMessages(email:String):findStarredMessagesResponse
     }
 
     type Mutation{
-        createMessage(input:messageInput):createStarredMessageResponse
+        createMessage(email:String,message:messageInput):createStarredMessageResponse
+        createUser(name:String,email:String):createUserResponse
     }
 
     type user{
@@ -15,6 +16,12 @@ export const typeDefs = gql`
         email:String
         name:String
         starredMessages:[starredMessage]
+    }
+
+    type findMessagesUser{
+        id:ID
+        email:String
+        name:String
     }
 
     input userInput{
@@ -32,6 +39,7 @@ export const typeDefs = gql`
         id:ID
         source:String
         message: String
+        user: findMessagesUser
         
     }
 
@@ -45,10 +53,17 @@ export const typeDefs = gql`
         status: Int
         success: Boolean
         messages: [starredMessage]
+        user:findMessagesUser
     }
 
     type findUserResponse{
         status: Int
+        success: Boolean
+        user: user
+    }
+
+    type createUserResponse{
+        status:Int
         success: Boolean
         user: user
     }
